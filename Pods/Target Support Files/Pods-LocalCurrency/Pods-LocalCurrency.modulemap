@@ -1,0 +1,6 @@
+framework module Pods_LocalCurrency {
+  umbrella header "Pods-LocalCurrency-umbrella.h"
+
+  export *
+  module * { export * }
+}
