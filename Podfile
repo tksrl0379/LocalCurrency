@@ -8,5 +8,6 @@ target 'LocalCurrency' do
   # Pods for LocalCurrency
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'NMapsMap'
 
 end
