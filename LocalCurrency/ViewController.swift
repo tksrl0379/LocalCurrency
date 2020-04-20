@@ -18,20 +18,66 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        let mapView = NMFNaverMapView(frame: view.frame)
-        view.addSubview(mapView)
+        /*
+         {} 중괄호: 객체. 무조건 key:value 쌍
+         [] 대괄호: 배열
+         
+         */
         
-        mapView.showLocationButton = true
-        mapView.showZoomControls = true
+        let info: PublishSubject<NSArray> = PublishSubject()
+
+        let sigun_nm = "광명시"
+        
+        /* 한글을 URL을 */
+        let str_url = sigun_nm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        
+        /*xx시에 지정된 모든 데이터들을 반복문? 혹은 어떠한 방법으로든 통해서 모두 프린트를 하는 방식을 찾기.*/
+        let req = URLRequest(url: URL(string: "https://openapi.gg.go.kr/RegionMnyFacltStus?Type=json&KEY=a8a1f1ba57704081bed7d50952f4de61&pIndex=1&pSize=2&SIGUN_NM=\(str_url)")!)
+        
+        /* json data를 받아오면 observable에 이벤트 발생 */
+        // 1. parse 메소드 실행: json 데이터 파싱
+        // 2. info (subject)에게 데이터 전달
+        URLSession.shared.rx.json(request: req) // observable
+            .map(parse)
+            .bind(to: info)
         
         
-        addMarker(mapView: mapView)
+        // 3. info가 데이터를 전달받으면 이 메소드 실행됨
+        info.subscribe(onNext: { storeRow in
+            storeRow.forEach{
+                let dict = $0 as! NSDictionary
+                print(dict["CMPNM_NM"]!)
+                print(dict["REFINE_WGS84_LOGT"]!)
+                print(dict["REFINE_WGS84_LAT"]!)
+            }
+        })
+        
+        
+        
+//        let mapView = NMFNaverMapView(frame: view.frame)
+//        view.addSubview(mapView)
+//
+//        mapView.showLocationButton = true
+//        mapView.showZoomControls = true
+//
+//
+//        addMarker(mapView: mapView)
         
         
         
         
+    }
+    
+    func parse(json: Any)-> NSArray{
+        let jsonParse = json as! [String:Any]
+        let item = jsonParse["RegionMnyFacltStus"]! as! NSArray
+        let storeInfo = item[1] as! NSDictionary
+        let storeRow = storeInfo["row"] as! NSArray
+        
+        
+        
+        return storeRow
     }
     
     /* 마커 위치 및 정보 표시 */
