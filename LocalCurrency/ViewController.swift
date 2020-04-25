@@ -6,6 +6,10 @@
 //  Copyright © 2020 SIMPARK. All rights reserved.
 //
 
+
+//https://stackoverflow.com/questions/30476179/realm-add-file-with-initial-data-to-project-ios-swift
+// realm 파일 적재해서 처음부터 가져오면?: 전화번호 중복 데이터, 위도/경도 없는 데이터 삭제하면 데이터 많이 줄어들듯
+
 import UIKit
 import RxSwift
 import RxCocoa
@@ -22,8 +26,11 @@ class StoreInfo: Object {
     @objc dynamic var phoneNum = ""
     @objc dynamic var lat = 0.0
     @objc dynamic var lng = 0.0
-  
-  // other properties left out ...
+    @objc dynamic var city = ""
+    
+    override static func indexedProperties() -> [String] {
+        return ["city"]
+    }
 }
 
 
@@ -63,12 +70,21 @@ class ViewController: UIViewController, NMFMapViewCameraDelegate{
 
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-        
+        let realm = try! Realm()
+        let model = realm.objects(StoreInfo.self).filter("city == '고양시'")
+        for a in model{
+//            print(a)
+//            try! realm.write {
+//              realm.delete(a)
+//            }
+        }
+//        print(model.count)
+
         
         
 
        
-        moveCamera.debounce(RxTimeInterval.milliseconds(1000), scheduler: MainScheduler.instance)
+        moveCamera.debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe{position in
                 print(position)
                 let position = position.element
@@ -163,16 +179,42 @@ class ViewController: UIViewController, NMFMapViewCameraDelegate{
                     if let storeName = data["CMPNM_NM"] as? String{
                         storeInfo.storeName = storeName
                     }
-                    if let lat = data["REFINE_WGS84_LAT"] as? String, let lng = data["REFINE_WGS84_LOGT"] as? String{
-                        storeInfo.lat = Double(lat)!
-                        storeInfo.lng = Double(lng)!
-                                            }
-                    if let phoneNum = data["TELNO"] as? String{
-                        storeInfo.phoneNum = phoneNum
+                    guard let lat = data["REFINE_WGS84_LAT"] as? String, let lng = data["REFINE_WGS84_LOGT"] as? String else {return}
+                    
+                    storeInfo.lat = Double(lat)!
+                    storeInfo.lng = Double(lng)!
+                    
+                    guard let phoneNum = data["TELNO"] as? String else {return}
+                    storeInfo.phoneNum = phoneNum
+                    
+                    
+                    
+                    
+//                    let model = realm.objects(StoreInfo.self).filter("storeName = '\(storeInfo.storeName)' AND lat == \(storeInfo.lat) AND lng == \(storeInfo.lng)")
+                    
+//                    let predicate = NSPredicate(format: "lat == %@", (storeInfo.lat))
+                    var exists = false
+                    let model = realm.objects(StoreInfo.self).filter("storeName = %@ AND lat = %@ AND lng = %@", storeInfo.storeName, storeInfo.lat, storeInfo.lng)
+                    if model.count != 0{
+                        exists = true
                     }
+                    if storeInfo.phoneNum != ""{
+                        let model = realm.objects(StoreInfo.self).filter("storeName = %@ AND phoneNum = %@", storeInfo.storeName, storeInfo.phoneNum)
+                        if model.count != 0{
+                            exists = true
+                        }
+                    }
+                    storeInfo.city = "안산시"
+                    
+                    
+                    if storeInfo.lat == 0.0 || storeInfo.lng == 0.0{
+                        print("위도 혹은 경도 0")
+                    }else if exists{
+                        print("이미 존재")
+                    }else{
+                        realm.add(storeInfo)
 
-//
-                    //realm.add(storeInfo)
+                    }
                 }
                 
 //                print(Realm.Configuration.defaultConfiguration.fileURL!)
@@ -210,54 +252,6 @@ class ViewController: UIViewController, NMFMapViewCameraDelegate{
          {} 중괄호: 객체. 무조건 key:value 쌍
          [] 대괄호: 배열
          */
-        
-        
-        /*
-        
-        /*xx시에 지정된 모든 데이터들을 반복문? 혹은 어떠한 방법으로든 통해서 모두 프린트를 하는 방식을 찾기.*/
-        
-        
-        /* json data를 받아오면 observable에 이벤트 발생 */
-        // 1. parse 메소드 실행: json 데이터 파싱
-        // 2. info (subject)에게 데이터 전달
-        
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-        button.backgroundColor = .green
-        button.setTitle("Test Button", for: .normal)
-        
-        self.view.addSubview(button)
-        
-        button.rx.tap.bind{ [weak self] in
-            let sigun_nm = "안산시"
-            
-            /* 한글을 URL을 */
-            let str_url = sigun_nm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            
-            for idx in 1...20{
-                let req = URLRequest(url: URL(string: "https://openapi.gg.go.kr/RegionMnyFacltStus?Type=json&KEY=a8a1f1ba57704081bed7d50952f4de61&pIndex=\(idx)&pSize=1000&SIGUN_NM=\(str_url)")!)
-                
-                URLSession.shared.rx.json(request: req)
-                    .map(self!.parseJson)
-                    .bind{ json in
-                        self!.info.onNext(json)
-                }.disposed(by: self!.urlDisposeBag)
-                
-                
-            }
-        }
-        
-         */
-        
-        
-        // 3. info가 데이터를 전달받으면 이 메소드 실행됨
-//        info.subscribe(onNext: { json in
-////            print(json)
-//            print("가나다라")
-//            self.addMarker(mapView: mapView, json: json)
-//            //urlDisposeBag.
-//
-//            }).disposed(by: disposeBag)
-        
         
         
     }
@@ -384,38 +378,3 @@ class ViewController: UIViewController, NMFMapViewCameraDelegate{
 }
 
 
-
-/*
- 
- func parseStoreInfo(storeRow: NSArray)-> [[[String:Any]]]{//[String : Array<String>]{
- //        var willShowData : [String: Array<String>] = [:]
-         var willShowData : [String: String] = [:]
-         
-         storeRow.forEach{
-             guard let dict = $0 as? NSDictionary else {return}
-             
-             var tmpDict: [String:Any] = [:]
-             
-             if let storeName = dict["CMPNM_NM"] as? String{
-                 tmpDict["상호명"] = storeName
-                 print(storeName)
-             }
-             if let phoneNum = dict["TELNO"] as? String{
-                // tmpDict["정보"]
-             }
-             
-             if let log = dict["REFINE_WGS84_LOGT"] as? String, let lat = dict["REFINE_WGS84_LAT"] as? String{
-
-                 tmpDict["위경도"] = ["dd"]
-                 
-                 print(lat, log)
-             }
-             
-             
-         }
-         
-         return [ [["상호명":"59쌀피자"], ["위경도": [13, 15]], ["정보":"010-3030-3030"]] ]
-     }
- 
- 
- */
