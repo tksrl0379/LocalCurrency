@@ -13,18 +13,6 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-//    func compactRealm() {
-//        let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
-//        let defaultParentURL = defaultURL.deletingLastPathComponent()
-//        let compactedURL = defaultParentURL.appendingPathComponent("default-compact")
-//
-//        autoreleasepool {
-//            let realm = try! Realm()
-//            try! realm.writeCopy(toFile: compactedURL)
-//        }
-//        try! FileManager.default.removeItem(at: defaultURL)
-//        try! FileManager.default.moveItem(at: compactedURL, to: defaultURL)
-//    }
     func compactRealm() {
         let defaultURL = Realm.Configuration.defaultConfiguration.fileURL!
         let defaultParentURL = defaultURL.deletingLastPathComponent()
@@ -45,34 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        compactRealm()
-        //openRealm() //2
-        //compactRealmSize()
-        
-        // Override point for customization after application launch.
-        return true
-    }
-    
-//    func compactSize(){
-//        let config = Realm.Configuration(shouldCompactOnLaunch: { totalBytes, usedBytes in
-//          // totalBytes refers to the size of the file on disk in bytes (data + free space)
-//          // usedBytes refers to the number of bytes used by data in the file
-//
-//          // Compact if the file is over 100MB in size and less than 50% 'used'
-//          let oneHundredMB = 100 * 1024 * 1024
-//          return (totalBytes > oneHundredMB) && (Double(usedBytes) / Double(totalBytes)) < 0.5
-//        })
-//        do {
-//          // Realm is compacted on the first open if the configuration block conditions were met.
-//          let realm = try Realm(configuration: config)
-//        } catch {
-//          // handle error compacting or opening Realm
-//        }
-//        
-//        
-//    }
-    
     func openRealm() {
         let bundlePath = Bundle.main.path(forResource: "default", ofType: "realm")!
         let defaultPath = Realm.Configuration.defaultConfiguration.fileURL!.path
@@ -88,8 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error)
             }
         }
-
     }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // default.realm 파일 경로 출력
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+
+        // default.realm 파일 사이즈 줄이기
+        //compactRealm()
+        
+        // 적재한 default.realm 파일 사용(default.realm 파일 읽어들이기)
+        openRealm()
+        
+        return true
+    }
+    
+    
+    
     
 
     // MARK: UISceneSession Lifecycle

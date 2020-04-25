@@ -13,6 +13,7 @@
 		3390CCAE244BE5AB004586AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAC244BE5AB004586AE /* Main.storyboard */; };
 		3390CCB0244BE5AC004586AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAF244BE5AC004586AE /* Assets.xcassets */; };
 		3390CCB3244BE5AC004586AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCB1244BE5AC004586AE /* LaunchScreen.storyboard */; };
+		33A7C7D82454741D004B4F9B /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = 33A7C7D72454741D004B4F9B /* default.realm */; };
 		D7B718CBA66462DB9F8C06AB /* Pods_LocalCurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D535B9C5347A896655E565 /* Pods_LocalCurrency.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +27,7 @@
 		3390CCAF244BE5AC004586AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3390CCB2244BE5AC004586AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3390CCB4244BE5AC004586AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33A7C7D72454741D004B4F9B /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; name = default.realm; path = LocalCurrency/default.realm; sourceTree = "<group>"; };
 		9B1CE7D1E1AFB23732462324 /* Pods-LocalCurrency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.release.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.release.xcconfig"; sourceTree = "<group>"; };
 		F32018D56970A4F5F1AB52B8 /* Pods-LocalCurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.debug.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,6 +56,7 @@
 		3390CC9A244BE5AB004586AE = {
 			isa = PBXGroup;
 			children = (
+				33A7C7D72454741D004B4F9B /* default.realm */,
 				3390CCA5244BE5AB004586AE /* LocalCurrency */,
 				3390CCA4244BE5AB004586AE /* Products */,
 				1B81A05D840B8F6B4EDAA19A /* Pods */,
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3390CCB3244BE5AC004586AE /* LaunchScreen.storyboard in Resources */,
+				33A7C7D82454741D004B4F9B /* default.realm in Resources */,
 				3390CCB0244BE5AC004586AE /* Assets.xcassets in Resources */,
 				3390CCAE244BE5AB004586AE /* Main.storyboard in Resources */,
 			);
