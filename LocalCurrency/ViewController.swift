@@ -73,7 +73,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         
         /* 카메라 좌표 변경 이벤트 발생 시 데이터 받음.
          debounce: 이벤트 도착 후 0.5초 기다렸다가 더 이상 추가 이벤트가 발생하지 않으면 Data 전달 */
-        moveCamera.debounce(RxTimeInterval.milliseconds(500), scheduler: ConcurrentMainScheduler.instance)
+        moveCamera.debounce(RxTimeInterval.milliseconds(250), scheduler: ConcurrentMainScheduler.instance)
             .subscribe{position in
                 
                 print(position)
