@@ -58,6 +58,7 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 print(query)
                 let realm = try! Realm()
                 self.shownStores = []
+                self.shownPhoneNum = []
                 let model = realm.objects(StoreInfo.self).filter("storeName CONTAINS %@ AND city = %@", query, "안산시")
                
                 for store in model{
