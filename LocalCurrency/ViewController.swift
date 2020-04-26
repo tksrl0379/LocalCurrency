@@ -24,6 +24,8 @@ class StoreInfo: Object {
     @objc dynamic var phoneNum = ""
     @objc dynamic var lat = 0.0
     @objc dynamic var lng = 0.0
+    @objc dynamic var addr = ""
+    @objc dynamic var type = ""
     @objc dynamic var city = ""
     
     override static func indexedProperties() -> [String] {

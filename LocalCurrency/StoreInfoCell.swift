@@ -16,5 +16,7 @@ class StoreInfoCell: UITableViewCell{
     
     @IBOutlet weak var phoneNum_Label: UILabel!
     
+    @IBOutlet weak var addr_Label: UILabel!
+    @IBOutlet weak var type_Label: UILabel!
     
 }

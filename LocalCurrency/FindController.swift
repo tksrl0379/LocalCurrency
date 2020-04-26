@@ -21,6 +21,8 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var shownStores = [String]()
     var shownPhoneNum = [String]()
+    var shownAddr = [String]()
+    var shownType = [String]()
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +36,8 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.storeName_Label.text = shownStores[indexPath.row]
         cell.phoneNum_Label.text = shownPhoneNum[indexPath.row]
+        cell.addr_Label.text = shownAddr[indexPath.row]
+        cell.type_Label.text = shownType[indexPath.row]
         return cell
     }
     
@@ -45,7 +49,7 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         StoreInfo_TableView.delegate = self
         StoreInfo_TableView.dataSource = self
-        StoreInfo_TableView.rowHeight = 75
+        StoreInfo_TableView.rowHeight = 100
         
         var frame = CGRect.zero
         frame.size.height = .leastNormalMagnitude
@@ -59,12 +63,15 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let realm = try! Realm()
                 self.shownStores = []
                 self.shownPhoneNum = []
+                self.shownAddr = []
+                self.shownType = []
                 let model = realm.objects(StoreInfo.self).filter("storeName CONTAINS %@ AND city = %@", query, "안산시")
                
                 for store in model{
                     self.shownStores.append(store.storeName)
                     self.shownPhoneNum.append(store.phoneNum)
-                    
+                    self.shownAddr.append(store.addr)
+                    self.shownType.append(store.type)
                 }
                 self.searchCount_Label.text = "검색 결과 총 \(model.count)개의 가맹점이 검색됐어요"
                 
