@@ -71,7 +71,10 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        
+        /* 검색 결과 최초 초기화 */
+        if self.searchCount_Label.text == ""{
+            self.searchCount_Label.text = "검색 결과 총 0개의 가맹점이 검색됐어요"
+        }
         
         /* 현재 좌표 받기 */
         locationManager = CLLocationManager()

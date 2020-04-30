@@ -132,9 +132,17 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         }
         
         info.subscribe(onNext:{ store in
+            for marker in self.markers{
+                marker.mapView = nil
+            }
+            self.markers = []
+            
             self.addMarker(mapView: mapView, json: [store])
-            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double))
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double), zoomTo: 17)
+        
+            
             mapView.mapView.moveCamera(cameraUpdate)
+            
         })
         
         
@@ -241,8 +249,6 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         }else{
                             marker.captionText = ""
                         }
-                        
-                        
                     }
                     return false
                 };
