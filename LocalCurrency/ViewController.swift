@@ -33,9 +33,12 @@ class StoreInfo: Object {
     }
 }
 
-class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate{
+class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, CLLocationManagerDelegate{
     
     var cnt = 0
+    
+    var locationManager: CLLocationManager!
+
     
     /* 정보 창 관련 변수들 */
     let infoWindow = NMFInfoWindow() // 정보 창 객체 생성 후
@@ -46,7 +49,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     var disposeBag = DisposeBag()
     
     /* Output 담당 Subject */
-    let info: PublishSubject<NSArray> = PublishSubject()
+    var info: PublishSubject<[String:Any]> = PublishSubject()
     
     //
     let moveCamera: PublishSubject<NMFCameraPosition> = PublishSubject()
@@ -60,6 +63,20 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         /* 네이버 지도 객체 */
         let mapView = NMFNaverMapView(frame: view.frame)
         view.addSubview(mapView)
+        
+        /* 현재 좌표로 화면 이동 */
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
+        let coor = locationManager.location?.coordinate
+        if let lat = coor?.latitude as? Double, let lng = coor?.longitude as? Double{
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
+            mapView.mapView.moveCamera(cameraUpdate)
+        }
+        
         
         /* 현재 위치, 줌, 나침반, 축척 바 활성화 */
         mapView.showLocationButton = true
@@ -113,6 +130,12 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 
                 
         }
+        
+        info.subscribe(onNext:{ store in
+            self.addMarker(mapView: mapView, json: [store])
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double))
+            mapView.mapView.moveCamera(cameraUpdate)
+        })
         
         
         
@@ -207,16 +230,19 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 
                 // touchHandler: 마커마다 개별 핸들러 등록
                 marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                    for m in self.markers{
+                        m.alpha = 0.1
+                    }
+                    marker.alpha = 1
+                    
                     if let marker = overlay as? NMFMarker {
-                        if marker.infoWindow == nil {
-                            // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-                            self.dataSource.title = markerInfo
-                            
-                            self.infoWindow.open(with: marker)
-                        } else {
-                            // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-                            self.infoWindow.close()
+                        if marker.captionText == ""{
+                            marker.captionText = markerInfo
+                        }else{
+                            marker.captionText = ""
                         }
+                        
+                        
                     }
                     return false
                 };
