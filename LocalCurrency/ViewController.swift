@@ -31,6 +31,8 @@ class StoreInfo: Object {
     override static func indexedProperties() -> [String] {
         return ["city"]
     }
+    
+    
 }
 
 class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, CLLocationManagerDelegate{
@@ -49,7 +51,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     var disposeBag = DisposeBag()
     
     /* Output 담당 Subject */
-    var info: PublishSubject<[String:Any]> = PublishSubject()
+    var searchInfo: PublishSubject<[String:Any]> = PublishSubject()
     
     //
     let moveCamera: PublishSubject<NMFCameraPosition> = PublishSubject()
@@ -95,25 +97,28 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         moveCamera.debounce(RxTimeInterval.milliseconds(250), scheduler: ConcurrentMainScheduler.instance)
             .subscribe{position in
                 
+               
                 print(position)
-            
+                
                 // 위도 경도 정보
                 let position = position.element?.target
                 
-                /* 지도에 있는 Marker 삭제 */
-                for marker in self.markers {
-                    marker.mapView = nil
-                }
-                self.markers = []
                 
+                
+                                /* 지도에 있는 Marker 삭제 */
+                                for marker in self.markers {
+                                    marker.mapView = nil
+                                }
+                                self.markers = []
+
                 // 가게 정보들을 담음
                 var storeInfo : [[String:Any]] = [[:]]
-                
+
                 // Realm DB 조회
                 let realm = try! Realm()
                 let model = realm.objects(StoreInfo.self)
                 for store in model{
-                    
+
                     /* 현재 화면의 위,경도 기준 반경 500m 이내의 가게들만 담음 */
                     if self.checkLatLngRange(clat: (position?.lat)!, clng: (position?.lng)!, nlat: store.lat, nlng: store.lng){
                         var tmpInfo :[String:Any] = [:]
@@ -121,17 +126,20 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         tmpInfo["phoneNum"] = store.phoneNum
                         tmpInfo["lat"] = store.lat
                         tmpInfo["lng"] = store.lng
-                        
+
                         storeInfo.append(tmpInfo)
                     }
                 }
                 // 지도에 마커 표시
                 self.addMarker(mapView: mapView, json: storeInfo)
-                
+
                 
         }
         
-        info.subscribe(onNext:{ store in
+        
+        
+        
+        searchInfo.subscribe(onNext:{ store in
             for marker in self.markers{
                 marker.mapView = nil
             }
@@ -269,6 +277,19 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         }
     }
     
+    
+    func checkValid(json: Any)->Int {
+        let jsonParse = json as! [String:Any]
+        let item = jsonParse["RegionMnyFacltStus"]! as! NSArray
+        let storeInfo = item[0] as! NSDictionary
+        let rowInfo = storeInfo["head"] as! NSArray
+        let infoDict = rowInfo[0] as! NSDictionary
+        let totalCount = infoDict["list_total_count"] as! Int
+        
+        
+        return totalCount
+        
+    }
     
     
     

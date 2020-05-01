@@ -60,7 +60,7 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var firstTab = self.tabBarController?.viewControllers![0] as! ViewController
         
         
-        firstTab.info.onNext(self.shownStore[indexPath.row])
+        firstTab.searchInfo.onNext(self.shownStore[indexPath.row])
         
         tb?.selectedIndex = 0
         

@@ -25,6 +25,67 @@
             </objects>
             <point key="canvasLocation" x="-32" y="198"/>
         </scene>
+        <!--설정-->
+        <scene sceneID="Od4-0Y-JRG">
+            <objects>
+                <viewController id="U3r-OC-wPi" customClass="SettingController" customModule="LocalCurrency" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cVF-mF-aHW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qcc-Rs-qc9">
+                                <rect key="frame" x="0.0" y="262.5" width="414" height="550.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DownloadCell" rowHeight="50" id="8Kx-mq-5bu" customClass="DownloadInfoCell" customModule="LocalCurrency" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Kx-mq-5bu" id="hkG-iY-eGE">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeH-nA-jRx">
+                                                    <rect key="frame" x="20" y="15" width="321" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cityName_Label" destination="SeH-nA-jRx" id="YLz-kB-fie"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="도시 선택" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O73-WA-Wxi">
+                                <rect key="frame" x="20" y="224" width="63.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Qcc-Rs-qc9" firstAttribute="trailing" secondItem="bCU-R5-7zD" secondAttribute="trailing" id="4Uu-do-3g9"/>
+                            <constraint firstItem="Qcc-Rs-qc9" firstAttribute="top" secondItem="O73-WA-Wxi" secondAttribute="bottom" constant="18" id="5iI-hq-kOg"/>
+                            <constraint firstItem="Qcc-Rs-qc9" firstAttribute="leading" secondItem="bCU-R5-7zD" secondAttribute="leading" id="IzX-R7-eiq"/>
+                            <constraint firstItem="O73-WA-Wxi" firstAttribute="top" secondItem="bCU-R5-7zD" secondAttribute="top" constant="180" id="KeR-p2-8GK"/>
+                            <constraint firstItem="O73-WA-Wxi" firstAttribute="leading" secondItem="bCU-R5-7zD" secondAttribute="leading" constant="20" id="ToG-oT-JTV"/>
+                            <constraint firstItem="Qcc-Rs-qc9" firstAttribute="bottom" secondItem="bCU-R5-7zD" secondAttribute="bottom" id="sf0-m4-MzX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bCU-R5-7zD"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="설정" image="circle.grid.2x2" catalog="system" id="Uba-u5-XfU"/>
+                    <connections>
+                        <outlet property="city_TableView" destination="Qcc-Rs-qc9" id="a66-mm-6GU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7kd-Ps-wO0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="682.60869565217399" y="198.88392857142856"/>
+        </scene>
         <!--검색-->
         <scene sceneID="Ozb-26-GKY">
             <objects>
@@ -169,6 +230,7 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="c8w-3I-WqZ"/>
                         <segue destination="QON-IK-Fgg" kind="relationship" relationship="viewControllers" id="o8b-aM-EU3"/>
+                        <segue destination="U3r-OC-wPi" kind="relationship" relationship="viewControllers" id="T0v-Nu-qZL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bWM-CS-my6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -177,6 +239,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="circle.grid.2x2" catalog="system" width="64" height="56"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="map" catalog="system" width="64" height="56"/>
     </resources>
