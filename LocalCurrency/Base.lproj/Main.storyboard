@@ -65,21 +65,38 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2cx-wd-JbA">
+                                <rect key="frame" x="82" y="102" width="250" height="2"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다운로드 현황" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Kl-uO-8XT">
+                                <rect key="frame" x="82" y="123" width="250" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Qcc-Rs-qc9" firstAttribute="trailing" secondItem="bCU-R5-7zD" secondAttribute="trailing" id="4Uu-do-3g9"/>
                             <constraint firstItem="Qcc-Rs-qc9" firstAttribute="top" secondItem="O73-WA-Wxi" secondAttribute="bottom" constant="18" id="5iI-hq-kOg"/>
+                            <constraint firstItem="O73-WA-Wxi" firstAttribute="top" secondItem="bCU-R5-7zD" secondAttribute="top" constant="180" id="7Bl-1O-9X7"/>
+                            <constraint firstItem="0Kl-uO-8XT" firstAttribute="leading" secondItem="bCU-R5-7zD" secondAttribute="leading" constant="82" id="8J2-3f-6gV"/>
+                            <constraint firstItem="2cx-wd-JbA" firstAttribute="top" secondItem="bCU-R5-7zD" secondAttribute="top" constant="58" id="C8E-zp-f7o"/>
                             <constraint firstItem="Qcc-Rs-qc9" firstAttribute="leading" secondItem="bCU-R5-7zD" secondAttribute="leading" id="IzX-R7-eiq"/>
-                            <constraint firstItem="O73-WA-Wxi" firstAttribute="top" secondItem="bCU-R5-7zD" secondAttribute="top" constant="180" id="KeR-p2-8GK"/>
+                            <constraint firstItem="2cx-wd-JbA" firstAttribute="leading" secondItem="cVF-mF-aHW" secondAttribute="leadingMargin" constant="62" id="O5T-6Z-UxF"/>
                             <constraint firstItem="O73-WA-Wxi" firstAttribute="leading" secondItem="bCU-R5-7zD" secondAttribute="leading" constant="20" id="ToG-oT-JTV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2cx-wd-JbA" secondAttribute="trailing" constant="62" id="bec-V4-YBU"/>
+                            <constraint firstItem="0Kl-uO-8XT" firstAttribute="top" secondItem="2cx-wd-JbA" secondAttribute="bottom" constant="19" id="cOg-Nf-Tj8"/>
                             <constraint firstItem="Qcc-Rs-qc9" firstAttribute="bottom" secondItem="bCU-R5-7zD" secondAttribute="bottom" id="sf0-m4-MzX"/>
+                            <constraint firstItem="bCU-R5-7zD" firstAttribute="trailing" secondItem="0Kl-uO-8XT" secondAttribute="trailing" constant="82" id="sgS-XM-ZUk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bCU-R5-7zD"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="설정" image="circle.grid.2x2" catalog="system" id="Uba-u5-XfU"/>
                     <connections>
                         <outlet property="city_TableView" destination="Qcc-Rs-qc9" id="a66-mm-6GU"/>
+                        <outlet property="progressBar" destination="2cx-wd-JbA" id="FM2-iC-nnB"/>
+                        <outlet property="progressStatus_Label" destination="0Kl-uO-8XT" id="xzl-Qn-pOP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kd-Ps-wO0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

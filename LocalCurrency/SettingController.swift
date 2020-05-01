@@ -13,7 +13,9 @@ import RealmSwift
 
 class SettingController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var city_TableView: UITableView!
+    @IBOutlet weak var progressStatus_Label: UILabel!
     
     var info: PublishSubject<NSArray> = PublishSubject()
     
@@ -54,8 +56,9 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
         city_TableView.rowHeight = 50
         
         
-        
-        
+        progressBar.progress = 0.0
+        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
+        progressStatus_Label.text = "거주중인 지역을 선택하세요"
         
         info.subscribe(onNext: { jsonAndCity in
             let realm = try! Realm()
@@ -150,6 +153,18 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                             cityStore += json
                         }
                         print("누적개수:", cityStore.count)
+                        
+                        print(Float(cityStore.count) / Float(totNum))
+                        DispatchQueue.main.async {
+                            self.progressBar.setProgress(Float(cityStore.count) / Float(totNum), animated: true)
+                            if self.progressBar.progress < 1{
+                                self.progressStatus_Label.text = "DB 적용 중"
+                            }else{
+                                self.progressStatus_Label.text = "DB 적용이 완료되었습니다 !"
+                            }
+                            
+                        }
+                        
                         if cityStore.count == totNum{
                             self.info.onNext([cityStore, "안산시"])
                         }
@@ -205,3 +220,5 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
         
     }
 }
+
+
