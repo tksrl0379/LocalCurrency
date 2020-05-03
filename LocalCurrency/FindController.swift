@@ -81,7 +81,7 @@ class FindController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.view.addSubview(button)
         
         //button Constraints
-        button.topAnchor.constraint(equalTo: view.topAnchor, constant: 81).isActive = true
+        button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 61).isActive = true
         button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 1).isActive = true
         //button.leftAnchor.constraint(equalTo: view.rightAnchor, constant: -50).isActive = true
         

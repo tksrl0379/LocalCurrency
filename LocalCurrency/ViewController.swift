@@ -155,14 +155,13 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     override func viewWillAppear(_ animated: Bool) {
         
         /* 앱을 처음 실행할 때에는 selected된 지역이 없기 때문에 설정 페이지로 들어가게 함.*/
-        
-        let selected = UserDefaults.standard.object(forKey: "selected") as! [String]
+        let selected = UserDefaults.standard.object(forKey: "selected") as? [String]
         print("selected? = \(selected)")
-        if( selected == [] ){
+        
+        if(selected == nil){
             //self.tabBarController?.viewControllers![2] as! ViewController
             let tb = self.tabBarController
             tb?.selectedIndex = 2
-            
         }
     }
     
