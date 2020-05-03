@@ -2,20 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-    <key>NSAllowsArbitraryLoads</key>
-    <true/>
-    </dict>
-    
-    
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>사용자의 위치를 받습니다.</string>
-    
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>사용자의 위치를 받습니다.</string>
-    <key>NMFClientId</key>
-    <string>8440wsf70z</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자의 위치를 받습니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자의 위치를 받습니다.</string>
+	<key>NMFClientId</key>
+	<string>8440wsf70z</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
