@@ -105,12 +105,12 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 
                 
                 
-                                /* 지도에 있는 Marker 삭제 */
-                                for marker in self.markers {
-                                    marker.mapView = nil
-                                }
-                                self.markers = []
-
+                /* 지도에 있는 Marker 삭제 */
+                for marker in self.markers {
+                    marker.mapView = nil
+                }
+                self.markers = []
+                
                 // 가게 정보들을 담음
                 var storeInfo : [[String:Any]] = [[:]]
 
@@ -147,7 +147,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
             
             self.addMarker(mapView: mapView, json: [store])
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double), zoomTo: 17)
-        
+            
             
             mapView.mapView.moveCamera(cameraUpdate)
             
