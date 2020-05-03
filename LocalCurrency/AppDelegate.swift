@@ -59,16 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //compactRealm()
         
         // 적재한 default.realm 파일 사용(default.realm 파일 읽어들이기)
-//        openRealm()
-        
-        
+//        openRealm()        
         
         return true
     }
-    
-    
-    
-    
 
     // MARK: UISceneSession Lifecycle
 

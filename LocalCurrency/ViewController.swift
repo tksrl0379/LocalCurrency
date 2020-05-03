@@ -34,7 +34,7 @@ class StoreInfo: Object {
     }
 }
 
-class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate{
+class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, UITabBarControllerDelegate{
     
     var cnt = 0
     
@@ -55,7 +55,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         /* 네이버 지도 객체 */
         let mapView = NMFNaverMapView(frame: view.frame)
         view.addSubview(mapView)
@@ -152,6 +152,19 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        /* 앱을 처음 실행할 때에는 selected된 지역이 없기 때문에 설정 페이지로 들어가게 함.*/
+        
+        let selected = UserDefaults.standard.object(forKey: "selected") as! [String]
+        print("selected? = \(selected)")
+        if( selected == [] ){
+            //self.tabBarController?.viewControllers![2] as! ViewController
+            let tb = self.tabBarController
+            tb?.selectedIndex = 2
+            
+        }
+    }
     
     /* 카메라 이동 콜백 */
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) { // NMFMapViewCameraDelegate 프로토콜 함수
