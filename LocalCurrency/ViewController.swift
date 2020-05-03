@@ -32,11 +32,16 @@ class StoreInfo: Object {
     override static func indexedProperties() -> [String] {
         return ["city"]
     }
+    
+    
 }
 
-class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate{
+class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, CLLocationManagerDelegate{
     
     var cnt = 0
+    
+    var locationManager: CLLocationManager!
+
     
     /* 정보 창 관련 변수들 */
     let infoWindow = NMFInfoWindow() // 정보 창 객체 생성 후
@@ -47,7 +52,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     var disposeBag = DisposeBag()
     
     /* Output 담당 Subject */
-    let info: PublishSubject<NSArray> = PublishSubject()
+    var searchInfo: PublishSubject<[String:Any]> = PublishSubject()
     
     let moveCamera: PublishSubject<NMFCameraPosition> = PublishSubject()
     
@@ -59,6 +64,20 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         /* 네이버 지도 객체 */
         let mapView = NMFNaverMapView(frame: view.frame)
         view.addSubview(mapView)
+        
+        /* 현재 좌표로 화면 이동 */
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
+        let coor = locationManager.location?.coordinate
+        if let lat = coor?.latitude as? Double, let lng = coor?.longitude as? Double{
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
+            mapView.mapView.moveCamera(cameraUpdate)
+        }
+        
         
         /* 현재 위치, 줌, 나침반, 축척 바 활성화 */
         mapView.showLocationButton = true
@@ -82,25 +101,28 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         moveCamera.debounce(RxTimeInterval.milliseconds(250), scheduler: ConcurrentMainScheduler.instance)
             .subscribe{position in
                 
+               
                 print(position)
                 
                 // 위도 경도 정보
                 let position = position.element?.target
                 
-                /* 지도에 있는 Marker 삭제 */
-                for marker in self.markers {
-                    marker.mapView = nil
-                }
-                self.markers = []
                 
+                
+                                /* 지도에 있는 Marker 삭제 */
+                                for marker in self.markers {
+                                    marker.mapView = nil
+                                }
+                                self.markers = []
+
                 // 가게 정보들을 담음
                 var storeInfo : [[String:Any]] = [[:]]
-                
+
                 // Realm DB 조회
                 let realm = try! Realm()
                 let model = realm.objects(StoreInfo.self).sorted(byKeyPath: "lat") //lat정렬을 통해 묶어주기 위함.
                 for store in model{
-                    
+
                     /* 현재 화면의 위,경도 기준 반경 500m 이내의 가게들만 담음 */
                     if self.checkLatLngRange(clat: (position?.lat)!, clng: (position?.lng)!, nlat: store.lat, nlng: store.lng){
                         var tmpInfo :[String:Any] = [:]
@@ -117,6 +139,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 }
                 // 지도에 마커 표시
                 self.addMarker(mapView: mapView, json: storeInfo)
+
                 
         }
         
@@ -314,6 +337,30 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                     storesOfbuildingArray.append(storesOfbuildingDict)
                     //print("새로운 MarkerInfo = \(markerInfo) cmpLatLng는 \(cmpLat) , \(cmpLng)")
                 }
+                
+                 marker.iconImage = NMF_MARKER_IMAGE_RED
+                
+                // touchHandler: 마커마다 개별 핸들러 등록
+                marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                    for m in self.markers{
+                        m.alpha = 0.1
+                    }
+                    marker.alpha = 1
+                    
+                    if let marker = overlay as? NMFMarker {
+                        if marker.captionText == ""{
+                            marker.captionText = markerInfo
+                        }else{
+                            marker.captionText = ""
+                        }
+                    }
+                    return false
+                };
+                
+                // 마커 크기 조정
+                marker.width = 22.5
+                marker.height = 30
+                self.markers.append(marker)
             }
             
             DispatchQueue.main.async { [weak self] in
@@ -350,6 +397,19 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: {(_) in }))
         
         self.present(alert, animated: false, completion: nil)
+    }
+    
+    func checkValid(json: Any)->Int {
+        let jsonParse = json as! [String:Any]
+        let item = jsonParse["RegionMnyFacltStus"]! as! NSArray
+        let storeInfo = item[0] as! NSDictionary
+        let rowInfo = storeInfo["head"] as! NSArray
+        let infoDict = rowInfo[0] as! NSDictionary
+        let totalCount = infoDict["list_total_count"] as! Int
+        
+        
+        return totalCount
+        
     }
     
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		335E0A00245C473A00131CBF /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335E09FF245C473A00131CBF /* SettingController.swift */; };
+		335E0A02245C687400131CBF /* DownloadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335E0A01245C687400131CBF /* DownloadCell.swift */; };
 		336CE61024556226008DC7B2 /* FindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336CE60F24556226008DC7B2 /* FindController.swift */; };
 		336CE612245563B2008DC7B2 /* StoreInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336CE611245563B2008DC7B2 /* StoreInfoCell.swift */; };
 		3390CCA7244BE5AB004586AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3390CCA6244BE5AB004586AE /* AppDelegate.swift */; };
@@ -15,12 +17,13 @@
 		3390CCAE244BE5AB004586AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAC244BE5AB004586AE /* Main.storyboard */; };
 		3390CCB0244BE5AC004586AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAF244BE5AC004586AE /* Assets.xcassets */; };
 		3390CCB3244BE5AC004586AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCB1244BE5AC004586AE /* LaunchScreen.storyboard */; };
-		33DCA5CC2455953600F605D3 /* default.realm in Resources */ = {isa = PBXBuildFile; fileRef = 33DCA5CB2455953600F605D3 /* default.realm */; };
 		D7B718CBA66462DB9F8C06AB /* Pods_LocalCurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D535B9C5347A896655E565 /* Pods_LocalCurrency.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		02D535B9C5347A896655E565 /* Pods_LocalCurrency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalCurrency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		335E09FF245C473A00131CBF /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		335E0A01245C687400131CBF /* DownloadCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCell.swift; sourceTree = "<group>"; };
 		336CE60F24556226008DC7B2 /* FindController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindController.swift; sourceTree = "<group>"; };
 		336CE611245563B2008DC7B2 /* StoreInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInfoCell.swift; sourceTree = "<group>"; };
 		3390CCA3244BE5AB004586AE /* LocalCurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalCurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,7 +34,6 @@
 		3390CCAF244BE5AC004586AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3390CCB2244BE5AC004586AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3390CCB4244BE5AC004586AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		33DCA5CB2455953600F605D3 /* default.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = default.realm; sourceTree = "<group>"; };
 		9B1CE7D1E1AFB23732462324 /* Pods-LocalCurrency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.release.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.release.xcconfig"; sourceTree = "<group>"; };
 		F32018D56970A4F5F1AB52B8 /* Pods-LocalCurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.debug.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,7 +62,6 @@
 		3390CC9A244BE5AB004586AE = {
 			isa = PBXGroup;
 			children = (
-				33DCA5CB2455953600F605D3 /* default.realm */,
 				3390CCA5244BE5AB004586AE /* LocalCurrency */,
 				3390CCA4244BE5AB004586AE /* Products */,
 				1B81A05D840B8F6B4EDAA19A /* Pods */,
@@ -80,10 +81,12 @@
 			isa = PBXGroup;
 			children = (
 				336CE611245563B2008DC7B2 /* StoreInfoCell.swift */,
+				335E0A01245C687400131CBF /* DownloadCell.swift */,
 				3390CCA6244BE5AB004586AE /* AppDelegate.swift */,
 				3390CCA8244BE5AB004586AE /* SceneDelegate.swift */,
 				3390CCAA244BE5AB004586AE /* ViewController.swift */,
 				336CE60F24556226008DC7B2 /* FindController.swift */,
+				335E09FF245C473A00131CBF /* SettingController.swift */,
 				3390CCAC244BE5AB004586AE /* Main.storyboard */,
 				3390CCAF244BE5AC004586AE /* Assets.xcassets */,
 				3390CCB1244BE5AC004586AE /* LaunchScreen.storyboard */,
@@ -161,7 +164,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3390CCB3244BE5AC004586AE /* LaunchScreen.storyboard in Resources */,
-				33DCA5CC2455953600F605D3 /* default.realm in Resources */,
 				3390CCB0244BE5AC004586AE /* Assets.xcassets in Resources */,
 				3390CCAE244BE5AB004586AE /* Main.storyboard in Resources */,
 			);
@@ -216,9 +218,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				335E0A00245C473A00131CBF /* SettingController.swift in Sources */,
 				336CE61024556226008DC7B2 /* FindController.swift in Sources */,
 				3390CCAB244BE5AB004586AE /* ViewController.swift in Sources */,
 				3390CCA7244BE5AB004586AE /* AppDelegate.swift in Sources */,
+				335E0A02245C687400131CBF /* DownloadCell.swift in Sources */,
 				336CE612245563B2008DC7B2 /* StoreInfoCell.swift in Sources */,
 				3390CCA9244BE5AB004586AE /* SceneDelegate.swift in Sources */,
 			);

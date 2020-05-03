@@ -19,4 +19,6 @@ class StoreInfoCell: UITableViewCell{
     @IBOutlet weak var addr_Label: UILabel!
     @IBOutlet weak var type_Label: UILabel!
     
+    @IBOutlet weak var distance_Label: UILabel!
+    
 }
