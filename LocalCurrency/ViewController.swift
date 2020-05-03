@@ -222,6 +222,8 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 //그 외에는 markerInfo에다가 추가시켜주는 방식.
                 
                 
+                
+                
                 if((cmpLat == 0 && cmpLng == 0) || (cmpLat == data["lat"] as? Double && cmpLng == data["lng"] as? Double)){
                     
                     /*일단 가게 이름과 전화번호를 저장한다*/
@@ -241,13 +243,14 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         }
                     }
                     storesOfbuildingArray.append(storesOfbuildingDict)
-                    continue //다음 data로 넘어간다.
                     
-                }else{
-                    //print("현재까지 마커정보 = \(markerInfo) cmpLatLng는 \(cmpLat) , \(cmpLng)")
+                    if json.count != 1{
+                        continue //다음 data로 넘어간다.
+                    }
+                    
+                }
+                
                     print("딕셔너리 배열은 \(storesOfbuildingArray)")
-                    
-                    //print("Dic의 가게이름정보만",storesOfbuildingArray)
                     
                     //배열에 있는 가게의 이름과 전화번호를 각각 해당 배열에 저장하는 과정
                     for data in storesOfbuildingArray {
@@ -258,9 +261,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         }
                         
                         if let phoneNum = data["phoneNum"] as? String{
-                            //                            if phoneNum == " "{ //전화번호가 없어도 Index를 맞추기 위해 임의로 0을 넣음
-                            //                                phoneNumeArray.append("0")
-                            //                            }
+                            
                             phoneNumeArray.append(phoneNum)
                         }
                     }
@@ -329,8 +330,9 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         cmpLng = lng
                     }
                     storesOfbuildingArray.append(storesOfbuildingDict)
-                    //print("새로운 MarkerInfo = \(markerInfo) cmpLatLng는 \(cmpLat) , \(cmpLng)")
-                }
+                
+                
+                
             }
             
             DispatchQueue.main.async { [weak self] in
@@ -356,6 +358,15 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
             
             if index != nil {
                 NSLog("Index: \(index!) \n가게 전화번호 : \(phoneNumArrayInfo[index!])")
+                if let phoneCallURL = URL(string: "tel://\(phoneNumArrayInfo[index!])") {
+                    
+                    let application:UIApplication = UIApplication.shared
+                    
+                    if (application.canOpenURL(phoneCallURL)) {
+                        application.open(phoneCallURL, options: [:], completionHandler: nil)
+                        
+                    }
+                }
                 
             }
         }
