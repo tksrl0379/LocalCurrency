@@ -6,9 +6,8 @@ https://navermaps.github.io/ios-map-sdk/reference/NMapsGeometry.html
 
 https://navermaps.github.io/ios-map-sdk/guide-ko/
 
-RxSwift
-
-Realm
+#### 사용 프레임워크
+RxSwift, Realm, Naver Map API, CoreLocation
 
 # 제작중 
 
