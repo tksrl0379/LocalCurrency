@@ -13,5 +13,6 @@ class DownloadInfoCell: UITableViewCell{
     
     @IBOutlet weak var cityName_Label: UILabel!
     
+    @IBOutlet weak var nickName_Label: UILabel!
     
 }

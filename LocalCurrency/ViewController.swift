@@ -87,6 +87,8 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 // 위도 경도 정보
                 let position = position.element?.target
                 
+                
+                
                 /* 지도에 있는 Marker 삭제 */
                 for marker in self.markers {
                     marker.mapView = nil
@@ -129,7 +131,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
             
             self.addMarker(mapView: mapView, json: [store])
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double), zoomTo: 17)
-        
+            
             
             mapView.mapView.moveCamera(cameraUpdate)
             

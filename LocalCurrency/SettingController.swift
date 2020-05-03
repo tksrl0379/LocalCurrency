@@ -19,7 +19,8 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var info: PublishSubject<NSArray> = PublishSubject()
     
-    let cities = ["가평군", "고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시", "수원시", "시흥시", "안산시", "안성시", "안양시", "양주시", "양평군", "여주시", "연천군", "오산시", "용인시", "의왕시", "의정부시", "이천시", "파주시", "평택시", "포천시", "하남시", "화성시"]
+    var cities = ["가평군", "고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시", "수원시", "시흥시", "안산시", "안성시", "안양시", "양주시", "양평군", "여주시", "연천군", "오산시", "용인시", "의왕시", "의정부시", "이천시", "파주시", "평택시", "포천시", "하남시", "화성시"]
+    var nicknames = ["가평사랑상품권", "고양페이", "과천토리", "광명사랑화폐", "광주사랑카드", "구리사랑카드", "군포애머니", "김포페이", "땡큐페이엔", "동두천사랑카드", "부천페이", "성남사랑상품권", "수원페이", "시루", "다온", "안성사랑카드", "안양사랑페이", "양주사랑카드", "양평페이", "여주사랑카드", "연천사랑상품권", "오색전", "용인와이페이", "의왕사랑상품권", "의정부사랑카드", "이천사랑지역화폐", "파주페이", "평택사랑상품권", "포천사랑상품권", "하머니", "화성행복지역화폐"]
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,13 +30,36 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DownloadCell", for: indexPath) as! DownloadInfoCell
         
+        /* 초기에는 무조건 검은색 표시 및 상호작용 가능 */
+        cell.isUserInteractionEnabled = true
+        cell.cityName_Label.textColor = .black
+        cell.nickName_Label.textColor = .black
+        
+        // 다운로드 된 지역은 회색 표시 및 상호작용 불가능
+        if let selected = UserDefaults.standard.object(forKey: "selected") as? [String]{
+            for city in selected{
+                if cities[indexPath.row].contains(city){
+                    cell.isUserInteractionEnabled = false
+                    cell.cityName_Label.textColor = .lightGray
+                    cell.nickName_Label.textColor = .lightGray
+                }
+            }
+        }
+
         cell.cityName_Label.text = cities[indexPath.row]
+        cell.nickName_Label.text = nicknames[indexPath.row]
         
         return cell
     }
     /* 특정 Cell 클릭 이벤트 처리 */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
+        var selected = UserDefaults.standard.object(forKey: "selected") as? [String]
+        selected?.append(cities[indexPath.row])
+        UserDefaults.standard.set(selected, forKey: "selected")
+        
+        
+        city_TableView.reloadData()
         
         self.downloadCity(cityName: cities[indexPath.row])
         
@@ -50,6 +74,10 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        if UserDefaults.standard.object(forKey: "selected") == nil{
+                UserDefaults.standard.set([], forKey: "selected")
+        }
         
         city_TableView.delegate = self
         city_TableView.dataSource = self
@@ -166,7 +194,7 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                         }
                         
                         if cityStore.count == totNum{
-                            self.info.onNext([cityStore, "안산시"])
+                            self.info.onNext([cityStore, cityName])
                         }
                         
                 }

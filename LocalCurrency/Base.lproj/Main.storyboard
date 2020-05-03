@@ -51,10 +51,18 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhR-Xd-vtn">
+                                                    <rect key="frame" x="160" y="14" width="218" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cityName_Label" destination="SeH-nA-jRx" id="YLz-kB-fie"/>
+                                            <outlet property="nickName_Label" destination="lhR-Xd-vtn" id="7ga-J4-vuq"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -112,7 +120,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="QRb-uh-h3h">
-                                <rect key="frame" x="0.0" y="104" width="414" height="56"/>
+                                <rect key="frame" x="93" y="105" width="321" height="56"/>
                                 <textInputTraits key="textInputTraits" textContentType="address-level2"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="3GT-Qd-aag">
@@ -205,19 +213,19 @@
                         <color key="backgroundColor" red="0.9488552213" green="0.94870942830000005" blue="0.96930819749999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4dD-op-bY9" firstAttribute="leading" secondItem="fWx-9g-LFc" secondAttribute="leading" constant="14" id="1Xv-xR-sKe"/>
-                            <constraint firstItem="4dD-op-bY9" firstAttribute="top" secondItem="QRb-uh-h3h" secondAttribute="bottom" constant="2" id="6KL-hD-L3P"/>
                             <constraint firstItem="fWx-9g-LFc" firstAttribute="top" secondItem="MMT-vA-uKy" secondAttribute="top" id="8ip-jH-h9w"/>
                             <constraint firstItem="3GT-Qd-aag" firstAttribute="top" secondItem="4dD-op-bY9" secondAttribute="bottom" constant="8" id="GQu-VO-MI5"/>
+                            <constraint firstItem="QRb-uh-h3h" firstAttribute="top" secondItem="MMT-vA-uKy" secondAttribute="bottom" constant="1" id="Gql-FY-cdA"/>
                             <constraint firstItem="MMT-vA-uKy" firstAttribute="leading" secondItem="fWx-9g-LFc" secondAttribute="leading" id="Jhs-O8-dt2"/>
-                            <constraint firstItem="QRb-uh-h3h" firstAttribute="leading" secondItem="fWx-9g-LFc" secondAttribute="leading" id="Mi9-BC-b6C"/>
                             <constraint firstItem="3GT-Qd-aag" firstAttribute="leading" secondItem="fWx-9g-LFc" secondAttribute="leading" id="RQR-s9-5ni"/>
                             <constraint firstItem="3GT-Qd-aag" firstAttribute="trailing" secondItem="fWx-9g-LFc" secondAttribute="trailing" id="RVN-lh-N2l"/>
                             <constraint firstItem="fWx-9g-LFc" firstAttribute="trailing" secondItem="4dD-op-bY9" secondAttribute="trailing" constant="20" id="VMG-fr-JHK"/>
+                            <constraint firstItem="QRb-uh-h3h" firstAttribute="leading" secondItem="fWx-9g-LFc" secondAttribute="leading" constant="93" id="YrJ-uZ-qAE"/>
                             <constraint firstItem="3GT-Qd-aag" firstAttribute="bottom" secondItem="fWx-9g-LFc" secondAttribute="bottom" id="isd-Ct-Oac"/>
                             <constraint firstItem="QRb-uh-h3h" firstAttribute="trailing" secondItem="fWx-9g-LFc" secondAttribute="trailing" id="lb0-sO-ZLy"/>
                             <constraint firstItem="MMT-vA-uKy" firstAttribute="trailing" secondItem="fWx-9g-LFc" secondAttribute="trailing" id="mzT-9X-kpA"/>
+                            <constraint firstItem="4dD-op-bY9" firstAttribute="top" secondItem="QRb-uh-h3h" secondAttribute="bottom" constant="1" id="r2y-Ip-T8I"/>
                             <constraint firstItem="3GT-Qd-aag" firstAttribute="bottom" secondItem="fWx-9g-LFc" secondAttribute="bottom" id="rcs-4o-KjK"/>
-                            <constraint firstItem="QRb-uh-h3h" firstAttribute="top" secondItem="MMT-vA-uKy" secondAttribute="bottom" id="v9u-iS-9ch"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fWx-9g-LFc"/>
                     </view>
