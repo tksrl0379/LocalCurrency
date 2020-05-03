@@ -32,16 +32,11 @@ class StoreInfo: Object {
     override static func indexedProperties() -> [String] {
         return ["city"]
     }
-    
-    
 }
 
-class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, CLLocationManagerDelegate{
+class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate{
     
     var cnt = 0
-    
-    var locationManager: CLLocationManager!
-
     
     /* 정보 창 관련 변수들 */
     let infoWindow = NMFInfoWindow() // 정보 창 객체 생성 후
@@ -65,20 +60,6 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         let mapView = NMFNaverMapView(frame: view.frame)
         view.addSubview(mapView)
         
-        /* 현재 좌표로 화면 이동 */
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        
-        let coor = locationManager.location?.coordinate
-        if let lat = coor?.latitude as? Double, let lng = coor?.longitude as? Double{
-            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
-            mapView.mapView.moveCamera(cameraUpdate)
-        }
-        
-        
         /* 현재 위치, 줌, 나침반, 축척 바 활성화 */
         mapView.showLocationButton = true
         mapView.showZoomControls = true
@@ -90,8 +71,8 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         
         /**************/
         //Test 카메라 초기 위도 경도 설정. 탄도항낚시슈퍼 -> 총 3개의 상점이 같은 위도 경도에 위치함
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: 37.191018125, lng: 126.64571304), zoomTo: 20)
-        mapView.mapView.moveCamera(cameraUpdate)
+//        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: 37.191018125, lng: 126.64571304), zoomTo: 20)
+//        mapView.mapView.moveCamera(cameraUpdate)
         /**************/
         
         //mapView.mapView.touchDelegate = self
@@ -101,28 +82,25 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         moveCamera.debounce(RxTimeInterval.milliseconds(250), scheduler: ConcurrentMainScheduler.instance)
             .subscribe{position in
                 
-               
                 print(position)
                 
                 // 위도 경도 정보
                 let position = position.element?.target
                 
+                /* 지도에 있는 Marker 삭제 */
+                for marker in self.markers {
+                    marker.mapView = nil
+                }
+                self.markers = []
                 
-                
-                                /* 지도에 있는 Marker 삭제 */
-                                for marker in self.markers {
-                                    marker.mapView = nil
-                                }
-                                self.markers = []
-
                 // 가게 정보들을 담음
                 var storeInfo : [[String:Any]] = [[:]]
-
+                
                 // Realm DB 조회
                 let realm = try! Realm()
                 let model = realm.objects(StoreInfo.self).sorted(byKeyPath: "lat") //lat정렬을 통해 묶어주기 위함.
                 for store in model{
-
+                    
                     /* 현재 화면의 위,경도 기준 반경 500m 이내의 가게들만 담음 */
                     if self.checkLatLngRange(clat: (position?.lat)!, clng: (position?.lng)!, nlat: store.lat, nlng: store.lng){
                         var tmpInfo :[String:Any] = [:]
@@ -139,9 +117,23 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                 }
                 // 지도에 마커 표시
                 self.addMarker(mapView: mapView, json: storeInfo)
-
                 
         }
+        
+        searchInfo.subscribe(onNext:{ store in
+            
+            for marker in self.markers{
+                marker.mapView = nil
+            }
+            self.markers = []
+            
+            self.addMarker(mapView: mapView, json: [store])
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: store["lat"] as! Double, lng: store["lng"] as! Double), zoomTo: 17)
+        
+            
+            mapView.mapView.moveCamera(cameraUpdate)
+            
+        })
         
         //        /* 테스트 용으로 만든 임시 버튼 */
         //        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
@@ -337,30 +329,6 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                     storesOfbuildingArray.append(storesOfbuildingDict)
                     //print("새로운 MarkerInfo = \(markerInfo) cmpLatLng는 \(cmpLat) , \(cmpLng)")
                 }
-                
-                 marker.iconImage = NMF_MARKER_IMAGE_RED
-                
-                // touchHandler: 마커마다 개별 핸들러 등록
-                marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-                    for m in self.markers{
-                        m.alpha = 0.1
-                    }
-                    marker.alpha = 1
-                    
-                    if let marker = overlay as? NMFMarker {
-                        if marker.captionText == ""{
-                            marker.captionText = markerInfo
-                        }else{
-                            marker.captionText = ""
-                        }
-                    }
-                    return false
-                };
-                
-                // 마커 크기 조정
-                marker.width = 22.5
-                marker.height = 30
-                self.markers.append(marker)
             }
             
             DispatchQueue.main.async { [weak self] in
@@ -399,21 +367,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         self.present(alert, animated: false, completion: nil)
     }
     
-    func checkValid(json: Any)->Int {
-        let jsonParse = json as! [String:Any]
-        let item = jsonParse["RegionMnyFacltStus"]! as! NSArray
-        let storeInfo = item[0] as! NSDictionary
-        let rowInfo = storeInfo["head"] as! NSArray
-        let infoDict = rowInfo[0] as! NSDictionary
-        let totalCount = infoDict["list_total_count"] as! Int
-        
-        
-        return totalCount
-        
-    }
-    
     
     
 }
-
 
