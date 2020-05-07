@@ -30,9 +30,11 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치를 받습니다.</string>
+	<string>사용자의 위치를 받습니다. always</string>
+	<key>NSLocationUsageDescription</key>
+	<string>지도권한을 동의하시면 현재위치 근처의 가맹점을 찾을 수 있습니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치를 받습니다.</string>
+	<string>지도권한을 동의하시면 현재위치 근처의 가맹점을 찾을 수 있습니다. 위치권한을 허용하여 앱을 편리하게 사용하세요.  (Accessing current location lets you find near stores which are available to use local currency. Please access your current location to use this app easily.)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
