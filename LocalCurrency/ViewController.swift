@@ -19,6 +19,10 @@ import RealmSwift
 
 //let cities = ["안산시"]
 
+
+
+
+
 /* 가게 정보 클래스 for Realm */
 class StoreInfo: Object {
     @objc dynamic var storeName = ""
@@ -34,7 +38,23 @@ class StoreInfo: Object {
     }
 }
 
-class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, UITabBarControllerDelegate{
+class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate, UITabBarControllerDelegate, UISearchBarDelegate, SendDataDelegate{
+    
+    func sendData(data: [String : Any], search: String) {
+        print(data)
+        searchInfo.onNext(data)
+        if let storeName = data["storeName"] as? String{
+            searchBar.text = storeName
+        }
+        if let city = data["city"] as? String{
+            cityName = city
+        }
+        searchText = search
+    }
+    
+    var searchText: String?
+    var cityName: String?
+    var searchBar: UISearchBar!
     
     var cnt = 0
     
@@ -53,12 +73,85 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     
     var markers = [NMFMarker]()
     
+    func setUpSearchBar(){
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.sizeToFit()
+        searchBar.searchBarStyle = .minimal
+        searchBar.backgroundColor = UIColor.white
+        searchBar.layer.borderColor = UIColor.lightGray.cgColor
+        searchBar.layer.borderWidth = 0.5
+        searchBar.placeholder = "가게 정보 검색"
+//        searchBar.tintColor = UIColor.green
+//        searchBar.barTintColor = UIColor.white
+//        navigationItem.titleView = searchBar
+        searchBar.isTranslucent = false
+//        searchBar.backgroundColor = UIColor.white
+        
+        
+        
+        // 뷰 추가
+        view.addSubview(searchBar)
+        
+        // 뷰 추가 후 constraint 조절
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        searchBar.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+//        searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
+        
+        
+        
+//        searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+//        searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 10).isActive = true
+        
+        
+        
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "FindController") as? FindController{
+//
+//            controller.modalTransitionStyle = .crossDissolve
+//            controller.modalPresentationStyle = .fullScreen
+//            self.present(controller, animated: true, completion: nil)
+            
+            let transition = CATransition()
+            transition.duration = 0.2
+            transition.type = CATransitionType.fade
+            self.navigationController?.view.layer.add(transition, forKey:nil)
+        
+            controller.delegate = self
+
+
+            controller.passedSearchName = searchText
+            controller.passedCity = cityName
+            
+            self.navigationController?.pushViewController(controller, animated: false)
+            self.view.endEditing(true)
+
+
+
+        }
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.navigationController?.isNavigationBarHidden = true
+        
         /* 네이버 지도 객체 */
         let mapView = NMFNaverMapView(frame: view.frame)
         view.addSubview(mapView)
+        
+        /* SearchBar 추가 */
+        setUpSearchBar()
+
         
         /* 현재 위치, 줌, 나침반, 축척 바 활성화 */
         mapView.showLocationButton = true
@@ -147,12 +240,15 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
         //
         //
         //        }
+    
         
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("cnt", cnt)
+        
         
         /* 앱을 처음 실행할 때에는 selected된 지역이 없기 때문에 설정 페이지로 들어가게 함.*/
         let selected = UserDefaults.standard.object(forKey: "selected") as? [String]
@@ -393,6 +489,12 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     }
     
     
-    
 }
+
+protocol SendDataDelegate {
+
+    func sendData(data: [String:Any], search: String)
+
+}
+
 
