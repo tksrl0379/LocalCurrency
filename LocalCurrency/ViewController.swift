@@ -388,7 +388,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                     
                     marker = NMFMarker(position: NMGLatLng(lat: cmpLat, lng: cmpLng))
                     
-                    marker.iconImage = NMF_MARKER_IMAGE_RED
+                    marker.iconImage = NMF_MARKER_IMAGE_GREEN
                     
                     // touchHandler: 마커마다 개별 핸들러 등록 콜백
                     marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
