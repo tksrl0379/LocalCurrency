@@ -33,6 +33,14 @@ RxSwift, Realm, Naver Map API, CoreLocation
 
 <img width="300" alt="스크린샷 2020-05-03 오후 5 57 40" src="https://user-images.githubusercontent.com/20080283/80910070-05b3b500-8d68-11ea-8ee0-f9637ee2ab68.png">
 
+#### 5/3 ~ 5/18
+1. 앱스토어 등록: https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8F%90-%EC%82%AC%EC%9A%A9%EC%B2%98/id1511379295
 
+5/18 기준 다운로드 현황
+
+![image](https://user-images.githubusercontent.com/20080283/82176555-104a7e80-9912-11ea-92c6-54a20b195e17.png)
+
+
+2. UI 변경
 
 
