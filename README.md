@@ -42,7 +42,7 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 * ## 기능 (ver 1.5)
 
 ### 작동 영상
-https://www.youtube.com/watch?v=MTGURBpcKFQ
+https://www.youtube.com/watch?v=5WZ07tMvVPM
 
 https://www.youtube.com/watch?v=MTGURBpcKFQ
 
