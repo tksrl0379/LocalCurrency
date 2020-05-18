@@ -480,6 +480,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
     func alertMessage(_ storeNameArrayInfo: Array<String>, _ phoneNumArrayInfo: Array<String>){
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.view.tintColor = UIColor.darkGray
         
         let closure = { (action: UIAlertAction!) -> Void in
             let index = alert.actions.firstIndex(of: action)
