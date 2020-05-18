@@ -76,7 +76,7 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 </br>
 
-## 제작 LOG
+* ## 제작 LOG
 
 #### 4/26 
 가게 검색 기능 추가
