@@ -39,6 +39,11 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 * ## 기능 (ver 1.5)
 
+### 작동 영상
+https://www.youtube.com/watch?v=MTGURBpcKFQ
+
+https://www.youtube.com/watch?v=MTGURBpcKFQ
+
 </br>
 
 ### 경기도 전 지역의 지역화폐 가맹점 데이터 다운로드 (해당 지역 가맹점들의 이름, 위/경도, 번호, 주소 다운로드)
