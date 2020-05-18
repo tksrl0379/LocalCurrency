@@ -54,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // default.realm 파일 경로 출력
         print(Realm.Configuration.defaultConfiguration.fileURL!)
+        
+        if UserDefaults.standard.object(forKey: "selected") == nil{
+                UserDefaults.standard.set([], forKey: "selected")
+        }
 
         // default.realm 파일 사이즈 줄이기
         //compactRealm()

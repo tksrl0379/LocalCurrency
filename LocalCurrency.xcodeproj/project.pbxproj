@@ -17,6 +17,8 @@
 		3390CCAE244BE5AB004586AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAC244BE5AB004586AE /* Main.storyboard */; };
 		3390CCB0244BE5AC004586AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCAF244BE5AC004586AE /* Assets.xcassets */; };
 		3390CCB3244BE5AC004586AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390CCB1244BE5AC004586AE /* LaunchScreen.storyboard */; };
+		33E3C98B2472B18D002E28B4 /* CustomizedTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3C98A2472B18D002E28B4 /* CustomizedTabBar.swift */; };
+		33E3C98D2472B1AE002E28B4 /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3C98C2472B1AE002E28B4 /* MyTabBarController.swift */; };
 		D7B718CBA66462DB9F8C06AB /* Pods_LocalCurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D535B9C5347A896655E565 /* Pods_LocalCurrency.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		3390CCAF244BE5AC004586AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3390CCB2244BE5AC004586AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3390CCB4244BE5AC004586AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		33E3C98A2472B18D002E28B4 /* CustomizedTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizedTabBar.swift; sourceTree = "<group>"; };
+		33E3C98C2472B1AE002E28B4 /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		9B1CE7D1E1AFB23732462324 /* Pods-LocalCurrency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.release.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.release.xcconfig"; sourceTree = "<group>"; };
 		F32018D56970A4F5F1AB52B8 /* Pods-LocalCurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalCurrency.debug.xcconfig"; path = "Target Support Files/Pods-LocalCurrency/Pods-LocalCurrency.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +95,8 @@
 				3390CCAF244BE5AC004586AE /* Assets.xcassets */,
 				3390CCB1244BE5AC004586AE /* LaunchScreen.storyboard */,
 				3390CCB4244BE5AC004586AE /* Info.plist */,
+				33E3C98A2472B18D002E28B4 /* CustomizedTabBar.swift */,
+				33E3C98C2472B1AE002E28B4 /* MyTabBarController.swift */,
 			);
 			path = LocalCurrency;
 			sourceTree = "<group>";
@@ -220,8 +226,10 @@
 			files = (
 				335E0A00245C473A00131CBF /* SettingController.swift in Sources */,
 				336CE61024556226008DC7B2 /* FindController.swift in Sources */,
+				33E3C98D2472B1AE002E28B4 /* MyTabBarController.swift in Sources */,
 				3390CCAB244BE5AB004586AE /* ViewController.swift in Sources */,
 				3390CCA7244BE5AB004586AE /* AppDelegate.swift in Sources */,
+				33E3C98B2472B18D002E28B4 /* CustomizedTabBar.swift in Sources */,
 				335E0A02245C687400131CBF /* DownloadCell.swift in Sources */,
 				336CE612245563B2008DC7B2 /* StoreInfoCell.swift in Sources */,
 				3390CCA9244BE5AB004586AE /* SceneDelegate.swift in Sources */,

@@ -13,15 +13,41 @@ import RealmSwift
 
 class SettingController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    @IBOutlet weak var progressBar: UIProgressView!
+//    @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var city_TableView: UITableView!
-    @IBOutlet weak var progressStatus_Label: UILabel!
+//    @IBOutlet weak var progressStatus_Label: UILabel!
+    
+    var progressBar: UIProgressView!
     
     var info: PublishSubject<NSArray> = PublishSubject()
+    var alertSub: PublishSubject<UIAlertController> = PublishSubject()
+
+    @IBOutlet weak var bar: UIView!
+    
     
     var cities = ["가평군", "고양시", "과천시", "광명시", "광주시", "구리시", "군포시", "김포시", "남양주시", "동두천시", "부천시", "성남시", "수원시", "시흥시", "안산시", "안성시", "안양시", "양주시", "양평군", "여주시", "연천군", "오산시", "용인시", "의왕시", "의정부시", "이천시", "파주시", "평택시", "포천시", "하남시", "화성시"]
     var nicknames = ["가평사랑상품권", "고양페이", "과천토리", "광명사랑화폐", "광주사랑카드", "구리사랑카드", "군포애머니", "김포페이", "땡큐페이엔", "동두천사랑카드", "부천페이", "성남사랑상품권", "수원페이", "시루", "다온", "안성사랑카드", "안양사랑페이", "양주사랑카드", "양평페이", "여주사랑카드", "연천사랑상품권", "오색전", "용인와이페이", "의왕사랑상품권", "의정부사랑카드", "이천사랑지역화폐", "파주페이", "평택사랑상품권", "포천사랑상품권", "하머니", "화성행복지역화폐"]
 
+    
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        /* 테이블뷰 설정 */
+        setUpTableView()
+        
+        /* 기타 UI 설정 */
+        setUpUi()
+        
+        /* Observable 설정 */
+        setUpObservable()
+        
+        
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cities.count
@@ -45,12 +71,15 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                 }
             }
         }
+        
 
         cell.cityName_Label.text = cities[indexPath.row]
         cell.nickName_Label.text = nicknames[indexPath.row]
         
         return cell
     }
+    
+    
     /* 특정 Cell 클릭 이벤트 처리 */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -58,35 +87,60 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
         selected?.append(cities[indexPath.row])
         UserDefaults.standard.set(selected, forKey: "selected")
         
-        
         city_TableView.reloadData()
+        
+        showToast(controller: self, message: cities[indexPath.row] + " 데이터 다운로드 중")
         
         self.downloadCity(cityName: cities[indexPath.row])
         
+
+        
+    }
+    
+    // Alert(Toast) 메시지
+    func showToast(controller: UIViewController, message : String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.view.backgroundColor = UIColor.darkGray
+//        alert.view.alpha = 0.9
+        alert.view.layer.cornerRadius = 15
+                
+        progressBar = UIProgressView(progressViewStyle: .default)
+        progressBar.frame = CGRect(x: 10, y: 70, width: 250, height: 10)
+        progressBar.progressTintColor = UIColor.systemGreen
+        
+        alert.view.addSubview(progressBar)
+        
+        present(alert, animated: true, completion: nil)
+        
+        var progress:Float = 0.0
+        /* downloadCity 함수에서 progressBar를 갱신하는 것을 감시: 완료되면 dismiss */
+            DispatchQueue.global(qos: .background).async {
+                repeat{
+                    Thread.sleep(forTimeInterval: 0.1)
+                    DispatchQueue.main.async {
+                        progress = self.progressBar.progress
+                    }
+                }while(progress != 1.0)
+                DispatchQueue.main.async {
+                    alert.dismiss(animated: true, completion: nil)
+                }
+            }
+                
     }
     
     
-    
-    
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        if UserDefaults.standard.object(forKey: "selected") == nil{
-                UserDefaults.standard.set([], forKey: "selected")
-        }
-        
+    func setUpTableView(){
         city_TableView.delegate = self
         city_TableView.dataSource = self
         city_TableView.rowHeight = 50
+    }
+ 
+    func setUpUi(){
+        bar.layer.borderColor = UIColor.lightGray.cgColor
+        bar.layer.borderWidth = 0.5
         
-        
-        progressBar.progress = 0.0
-        progressBar.transform = CGAffineTransform(scaleX: 1.0, y: 2.0)
-        progressStatus_Label.text = "거주중인 지역을 선택하세요"
+    }
+    func setUpObservable(){
         
         info.subscribe(onNext: { jsonAndCity in
             let realm = try! Realm()
@@ -96,10 +150,10 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
             let city = jsonAndCity[1] as! String
             for data in json {
                 guard let data = data as? NSDictionary else {return}
+                
                 // 넣어주는 객체(storeinfo)는 계속 새로운 객체로 갈아줘야 함. 전역으로 싱글톤처럼 못씀.
                 let storeInfo = StoreInfo()
                 
-                //                try! realm.write {
                 
                 if let storeName = data["CMPNM_NM"] as? String{
                     storeInfo.storeName = storeName
@@ -124,16 +178,12 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                     storeInfo.type = type
                 }
                 
-                
                 storeInfo.city = city
-                
                 
                 if storeInfo.lat == 0.0 || storeInfo.lng == 0.0{
                     print("위도 혹은 경도 0")
                 }else{
-                    
                     objects.append(storeInfo)
-                    
                 }
                 
                 
@@ -145,11 +195,9 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             self.compactRealm()
             
-            
-            
-            
         })
     }
+    
     
     func downloadCity(cityName: String){
         
@@ -186,9 +234,10 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                         DispatchQueue.main.async {
                             self.progressBar.setProgress(Float(cityStore.count) / Float(totNum), animated: true)
                             if self.progressBar.progress < 1{
-                                self.progressStatus_Label.text = "DB 적용 중"
+//                                self.progressStatus_Label.text = cityName + " 가맹점 정보 적용 중"
                             }else{
-                                self.progressStatus_Label.text = "DB 적용이 완료되었습니다 !"
+                                
+//                                self.progressStatus_Label.text = cityName + " 가맹점 정보 적용이 완료되었습니다 !"
                             }
                             
                         }
