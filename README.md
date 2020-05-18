@@ -1,7 +1,7 @@
 # :round_pushpin: LocalCurrency
 
 
-#### 사용 프레임워크
+* ## 사용 프레임워크
 RxSwift, Realm, Naver Map API, CoreLocation
 
 Naver Map API 가이드
@@ -9,26 +9,35 @@ https://navermaps.github.io/ios-map-sdk/reference/NMapsGeometry.html
 
 https://navermaps.github.io/ios-map-sdk/guide-ko/
 
+</br>
+
 * ## 개발자
 : 박진서, 심영민
 
 </br>
 
 * ## 개발 기간
-: 4/26 ~ 개발중
+: 4/19 ~ 개발중
 
 </br>
 
 * ## 앱스토어
 ![image](https://user-images.githubusercontent.com/20080283/82233091-6cd98800-996a-11ea-90a6-6c6493a85d4d.png)
 
+</br>
+
+#### URL
+
 https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8F%90-%EC%82%AC%EC%9A%A9%EC%B2%98/id1511379295
+
+</br>
+
 ![image](https://user-images.githubusercontent.com/20080283/82176555-104a7e80-9912-11ea-92c6-54a20b195e17.png)
 : 5/18 기준 다운로드 현황
 
 </br>
 
-* ## 기능
+* ## 기능 (ver 1.5)
 
 </br>
 
