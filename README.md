@@ -41,13 +41,13 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 </br>
 
-#### 경기도 전 지역의 지역화폐 가맹점 데이터 다운로드
+#### 경기도 전 지역의 지역화폐 가맹점 데이터 다운로드 (해당 지역 가맹점들의 이름, 위/경도, 번호, 주소 다운로드)
 
 <img width="410" alt="스크린샷 2020-05-19 오전 12 53 13" src="https://user-images.githubusercontent.com/20080283/82234176-081f2d00-996c-11ea-900c-31e9d67470c1.png"> <img width="404" alt="스크린샷 2020-05-19 오전 12 59 05" src="https://user-images.githubusercontent.com/20080283/82234185-0c4b4a80-996c-11ea-9c3f-c7388445bd10.png">
 
 </br>
 
-#### 지도에서 마커로 가맹점의 위치 표시
+#### 지도에서 마커로 가맹점의 위치 표시 -> 전화 연결
 : 공공 데이터 포털에서 제공하는 각 가맹점의 위/경도 데이터는 같은 건물에 위치한 경우 무조건 위/경도가 동일하게 나오므로
 </br>
 아래와 같이 여러 가게들을 묶어서 표시함. 해당 가게 클릭 시 전화로 연결됨.
@@ -56,7 +56,7 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 </br>
 
-#### 가맹점 검색 기능
+#### 가맹점 검색 기능 (가게정보, 거리 표시)
 : 해당하는 가맹점을 선택하면 지도로 이동하여 위치 표시
 
 <img width="400" alt="스크린샷 2020-05-19 오전 12 55 44" src="https://user-images.githubusercontent.com/20080283/82234200-10776800-996c-11ea-9882-85b867bf559a.png"> <img width="403" alt="스크린샷 2020-05-19 오전 12 57 51" src="https://user-images.githubusercontent.com/20080283/82234203-11a89500-996c-11ea-9feb-192d25ef9bab.png">
