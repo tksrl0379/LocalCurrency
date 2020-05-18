@@ -41,7 +41,7 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 </br>
 
-#### 경기도 전 지역의 지역화폐 가맹점 데이터 다운로드 (해당 지역 가맹점들의 이름, 위/경도, 번호, 주소 다운로드)
+### 경기도 전 지역의 지역화폐 가맹점 데이터 다운로드 (해당 지역 가맹점들의 이름, 위/경도, 번호, 주소 다운로드)
 
 <img width="410" alt="스크린샷 2020-05-19 오전 12 53 13" src="https://user-images.githubusercontent.com/20080283/82234176-081f2d00-996c-11ea-900c-31e9d67470c1.png"> <img width="404" alt="스크린샷 2020-05-19 오전 12 59 05" src="https://user-images.githubusercontent.com/20080283/82234185-0c4b4a80-996c-11ea-9c3f-c7388445bd10.png">
 
