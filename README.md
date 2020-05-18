@@ -50,7 +50,7 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 #### 지도에서 마커로 가맹점의 위치 표시
 : 공공 데이터 포털에서 제공하는 각 가맹점의 위/경도 데이터는 같은 건물에 위치한 경우 무조건 위/경도가 동일하게 나오므로
 </br>
-아래와 같이 여러 가게들을 묶어서 표시함
+아래와 같이 여러 가게들을 묶어서 표시함. 해당 가게 클릭 시 전화로 연결됨.
 
 <img width="400" alt="스크린샷 2020-05-19 오전 12 54 49" src="https://user-images.githubusercontent.com/20080283/82234189-0e150e00-996c-11ea-8c03-c328fd69271b.png"> <img width="404" alt="스크린샷 2020-05-19 오전 12 55 20" src="https://user-images.githubusercontent.com/20080283/82234193-0f463b00-996c-11ea-9c53-f53569f18ae4.png">
 
