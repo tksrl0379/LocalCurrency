@@ -1,5 +1,9 @@
 # :round_pushpin: LocalCurrency
 
+: 최근 긴급재난지원금/재난기본소득/청년기본소득 등 지역화폐의 지급이 많아짐에 따라 지역화폐의 보급이 점점 늘어나고 있습니다. 최근 이로 인해 여러 가게에서 지역화폐가 지원되는지에 대한 문의가 많이 늘었다고 들었고 실제로 어머니가 운영하시는 음식점에도 하루에 몇 번씩 질문이 들어온다고 들었습니다.
+</br>
+
+따라서 이러한 문제 해결에 조금이나마 도움이 되고자 2명이서 경기지역화폐의 사용처를 알려주는 APP을 제작하게 되었습니다.
 
 * ## 사용 프레임워크
 RxSwift, Realm, Naver Map API, CoreLocation
@@ -23,8 +27,6 @@ https://navermaps.github.io/ios-map-sdk/guide-ko/
 
 * ## 앱스토어
 ![image](https://user-images.githubusercontent.com/20080283/82233091-6cd98800-996a-11ea-90a6-6c6493a85d4d.png)
-
-</br>
 
 #### URL
 
