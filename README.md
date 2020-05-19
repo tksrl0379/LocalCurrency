@@ -54,7 +54,7 @@ https://www.youtube.com/watch?v=MTGURBpcKFQ
 
 </br>
 
-### 지도에서 마커로 가맹점의 위치 표시 -> 전화 연결
+### 지도에서 마커로 가맹점의 위치 표시(현재 화면이 위치한 위도/경도 기준 반경 500M 주변의 마커만 표시) -> 전화 연결
 
 : 공공 데이터 포털에서 제공하는 각 가맹점의 위/경도 데이터는 같은 건물에 위치한 경우 무조건 위/경도가 동일하게 나오므로
 </br>
@@ -92,7 +92,6 @@ https://www.youtube.com/watch?v=MTGURBpcKFQ
 
 #### 5/3
 1. 지도에서 마커 클릭 시 위도 경도 겹쳐있는 여러 가게 정보들 한꺼번에 표시 및 가게 클릭 시 전화하는 기능 추가
-: 현재 화면이 위치한 위도/경도 기준 반경 500M 주변의 마커만 표시
 
 <img width="300" alt="스크린샷 2020-05-03 오후 5 58 55" src="https://user-images.githubusercontent.com/20080283/80910075-08aea580-8d68-11ea-8f0c-f8b96386a021.png"> <img width="300" alt="스크린샷 2020-05-03 오후 5 58 19" src="https://user-images.githubusercontent.com/20080283/80910074-077d7880-8d68-11ea-88ab-260c224d03ad.png">
 
