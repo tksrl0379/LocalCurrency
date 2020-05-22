@@ -7,7 +7,6 @@ target 'LocalCurrency' do
 
 
   # Pods for LocalCurrency
-  pod 'RealmSwift'
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'NMapsMap'
