@@ -1,5 +1,10 @@
 PODS:
   - NMapsMap (3.8.0)
+  - Realm (4.4.1):
+    - Realm/Headers (= 4.4.1)
+  - Realm/Headers (4.4.1)
+  - RealmSwift (4.4.1):
+    - Realm (= 4.4.1)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -9,22 +14,27 @@ PODS:
 
 DEPENDENCIES:
   - NMapsMap
+  - RealmSwift
   - RxCocoa
   - RxSwift
 
 SPEC REPOS:
   trunk:
     - NMapsMap
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
   NMapsMap: b3633ad688483a318be9293aeddd323a714fb08b
+  Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
+  RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: b5d8777c315b7682160f132a8fcd10972fc4aba2
+PODFILE CHECKSUM: 655c70cb482f43cb9ed66f039c0532ecd906b490
 
 COCOAPODS: 1.8.4
