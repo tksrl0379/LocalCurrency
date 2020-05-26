@@ -34,8 +34,8 @@ https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8
 
 </br>
 
-![image](https://user-images.githubusercontent.com/20080283/82176555-104a7e80-9912-11ea-92c6-54a20b195e17.png)
-: 5/18 기준 다운로드 현황
+![image](https://user-images.githubusercontent.com/20080283/82917548-86a04e00-9fae-11ea-8e77-2b6c02f35c13.png)
+: 5/27 기준 다운로드 현황
 
 </br>
 
