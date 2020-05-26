@@ -130,7 +130,7 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                 /* Error 처리(경기데이터드림 오류로 인해 데이터를 모두 다운받지 못한 경우)  */
                 self.cnt+=1
                 print(self.cnt)
-                if self.errorChk == true && self.cnt == 90{
+                if self.errorChk == true && self.cnt == 80 || self.cnt > 150{
                     self.cnt = 0
                     self.errorChk = false
                     self.info.onNext([self.cityStore, cityName])

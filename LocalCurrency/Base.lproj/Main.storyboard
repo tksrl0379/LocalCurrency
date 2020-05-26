@@ -113,7 +113,7 @@
                                     <constraint firstAttribute="width" constant="315" id="tlh-dv-xUo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiu-oh-c8M">
@@ -447,11 +447,11 @@
                                     <constraint firstAttribute="height" constant="1" id="xTU-KL-Jmp"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eij-MD-dkm">
-                                <rect key="frame" x="30" y="182" width="33" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eij-MD-dkm">
+                                <rect key="frame" x="30" y="182" width="37" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="01G-uz-SfR"/>
-                                    <constraint firstAttribute="width" constant="33" id="H0K-pW-lfC"/>
+                                    <constraint firstAttribute="width" constant="37" id="yQC-gl-GgD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
