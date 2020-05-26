@@ -412,7 +412,7 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                     // touchHandler: 마커마다 개별 핸들러 등록 콜백
                     marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
                         
-                        /*영민이가 준 옵션. 클릭시 현재 마커 제외 모두 불투명으로 변경.*/
+                        /* 클릭시 현재 마커 제외 모두 불투명으로 변경 */
                         for m in self.markers{
                             m.alpha = 0.1
                         }
@@ -421,12 +421,6 @@ class ViewController: UIViewController, NMFMapViewTouchDelegate, NMFMapViewCamer
                         if let marker = overlay as? NMFMarker {
                             self.alertMessage(storeNameArrayInfo, phoneNumArrayInfo)
 
-//                            if marker.infoWindow == nil {
-//                                // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-//                            } else {
-//                                // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-//                                self.infoWindow.close()
-//                            }
                         }
                         return false
                     };

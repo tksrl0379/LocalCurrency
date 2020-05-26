@@ -13,9 +13,11 @@ import RealmSwift
 
 class SettingController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-//    @IBOutlet weak var progressBar: UIProgressView!
+    var cnt = 0
+    var errorChk: Bool = false
+    var cityStore : [[String:Any]] = [[String:Any]]()
+
     @IBOutlet weak var city_TableView: UITableView!
-//    @IBOutlet weak var progressStatus_Label: UILabel!
     
     var progressBar: UIProgressView!
     
@@ -89,8 +91,8 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         city_TableView.reloadData()
         
-        showToast(controller: self, message: cities[indexPath.row] + " 데이터 다운로드 중")
-        
+        self.cityStore = []
+        showToast(controller: self, cityName: cities[indexPath.row])
         self.downloadCity(cityName: cities[indexPath.row])
         
 
@@ -98,14 +100,15 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     // Alert(Toast) 메시지
-    func showToast(controller: UIViewController, message : String) {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+    func showToast(controller: UIViewController, cityName: String) {
+        let alert = UIAlertController(title: nil, message: cityName + " 데이터 다운로드 중", preferredStyle: .alert)
+
         alert.view.backgroundColor = UIColor.darkGray
 //        alert.view.alpha = 0.9
         alert.view.layer.cornerRadius = 15
                 
         progressBar = UIProgressView(progressViewStyle: .default)
-        progressBar.frame = CGRect(x: 10, y: 70, width: 250, height: 10)
+        progressBar.frame = CGRect(x: 10, y: 60, width: 250, height: 10)
         progressBar.progressTintColor = UIColor.systemGreen
         
         alert.view.addSubview(progressBar)
@@ -114,18 +117,33 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         var progress:Float = 0.0
         /* downloadCity 함수에서 progressBar를 갱신하는 것을 감시: 완료되면 dismiss */
-            DispatchQueue.global(qos: .background).async {
-                repeat{
-                    Thread.sleep(forTimeInterval: 0.1)
-                    DispatchQueue.main.async {
-                        progress = self.progressBar.progress
-                    }
-                }while(progress != 1.0)
-                DispatchQueue.main.async {
-                    alert.dismiss(animated: true, completion: nil)
-                }
-            }
+        DispatchQueue.global(qos: .background).async {
+            
+            repeat{
                 
+                Thread.sleep(forTimeInterval: 0.1)
+                
+                DispatchQueue.main.async {
+                    progress = self.progressBar.progress
+                }
+                
+                /* Error 처리(경기데이터드림 오류로 인해 데이터를 모두 다운받지 못한 경우)  */
+                self.cnt+=1
+                print(self.cnt)
+                if self.errorChk == true && self.cnt == 90{
+                    self.cnt = 0
+                    self.errorChk = false
+                    self.info.onNext([self.cityStore, cityName])
+                    break
+                }
+                
+            }while(progress != 1.0)
+            
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
+        
     }
     
     
@@ -191,6 +209,11 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
             
             try! realm.write {
                 realm.add(objects)
+//                let model = realm.objects(StoreInfo.self)
+//                for i in model{
+//                    print(i)
+//                }
+                
             }
             
             self.compactRealm()
@@ -213,7 +236,6 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
             .map(self.checkValid)
             .bind(to: totalNumber)
         
-        var cityStore : [[String:Any]] = [[String:Any]]()
         
         totalNumber.subscribe(onNext:{ totNum in
             print("총개수:\(totNum)")
@@ -223,30 +245,29 @@ class SettingController: UIViewController, UITableViewDelegate, UITableViewDataS
                 let req = URLRequest(url: URL(string: "https://openapi.gg.go.kr/RegionMnyFacltStus?Type=json&KEY=a8a1f1ba57704081bed7d50952f4de61&pIndex=\(idx)&pSize=1000&SIGUN_NM=\(str_url)")!)
                 URLSession.shared.rx.json(request: req)
                     .map(self.parseJson)
-                    .bind{ json in
+                    .subscribe(onNext:{ json in
                         
                         if let json = json as? [[String:Any]]{
-                            cityStore += json
+                            self.cityStore += json
                         }
-                        print("누적개수:", cityStore.count)
+                        print("누적개수:", self.cityStore.count)
                         
-                        print(Float(cityStore.count) / Float(totNum))
+                        print(Float(self.cityStore.count) / Float(totNum))
                         DispatchQueue.main.async {
-                            self.progressBar.setProgress(Float(cityStore.count) / Float(totNum), animated: true)
-                            if self.progressBar.progress < 1{
-//                                self.progressStatus_Label.text = cityName + " 가맹점 정보 적용 중"
-                            }else{
-                                
-//                                self.progressStatus_Label.text = cityName + " 가맹점 정보 적용이 완료되었습니다 !"
-                            }
-                            
+                            self.progressBar.setProgress(Float(self.cityStore.count) / Float(totNum), animated: true)
+                            self.cnt = 0
                         }
                         
-                        if cityStore.count == totNum{
-                            self.info.onNext([cityStore, cityName])
+                        if self.cityStore.count == totNum{
+                            self.info.onNext([self.cityStore, cityName])
                         }
                         
-                }
+                    }, onError: { error in
+                        self.errorChk = true
+                        print(error)
+                        
+                    }
+                )
             }
         })
         
