@@ -21,7 +21,7 @@ https://navermaps.github.io/ios-map-sdk/guide-ko/
 </br>
 
 * ## 개발 기간
-: 4/19 ~ 개발중
+: 4/19 ~ 유지보수 중
 
 </br>
 
@@ -32,10 +32,6 @@ https://navermaps.github.io/ios-map-sdk/guide-ko/
 
 https://apps.apple.com/kr/app/%EA%B2%BD%EA%B8%B0%EC%A7%80%EC%97%AD%ED%99%94%ED%8F%90-%EC%82%AC%EC%9A%A9%EC%B2%98/id1511379295
 
-</br>
-
-![image](https://user-images.githubusercontent.com/20080283/82917548-86a04e00-9fae-11ea-8e77-2b6c02f35c13.png)
-: 5/27 기준 다운로드 현황
 
 </br>
 
